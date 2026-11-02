@@ -8,7 +8,7 @@ public sealed class InputHealth : IDisposable {
  long last,lastReport,samples,over50,over250,writeFailures,writeRetries;double gapMax;
  string previous="";
  string? lastWriteError;
- public InputHealth(string directory){writer=new(Path.Combine(directory,"input-health.jsonl"));writer.WriteLine(JsonSerializer.Serialize(new{version="0.4.6",target_interval_ms=8,ttl_ms=250}));writer.Flush();}
+ public InputHealth(string directory){writer=new(Path.Combine(directory,"input-health.jsonl"));writer.WriteLine(JsonSerializer.Serialize(new{version="0.4.7",target_interval_ms=8,ttl_ms=250}));writer.Flush();}
  public void WriteFailed(Exception error,string stage){writeFailures++;lastWriteError=$"{stage} 0x{error.HResult:X8}: {error.Message}";}
  public void WriteRetry()=>writeRetries++;
  public void Sample(long now,bool focused,bool blocked,int connected,string? error,long recovered,long expired){

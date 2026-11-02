@@ -1,44 +1,43 @@
-# Compilar desde el código fuente
+# Building from source
 
-Para **jugar**, usa el ZIP de Releases y tu ROM; estas herramientas son solo
-para desarrollar/compilar. La ROM, el cartucho, los IR y el C++ generado nunca
-se añaden al repositorio.
+To **play**, use the Windows release ZIP and your own ROM. These tools are for
+development only. Never commit the ROM, prepared cartridge, IR or generated C++.
 
-## Herramientas comprobadas
+## Verified tools
 
-- Windows x64, PowerShell, Python 3.
+- Windows x64, PowerShell and Python 3.
 - .NET SDK 10.
-- LLVM-MinGW con `clang++`, CMake y Ninja en PATH.
-- Ghidra **12.1.4** y un JDK compatible (el entorno de desarrollo usa JDK 25).
-  La especificación y el generador tienen reparaciones explícitas de SH-2 y
-  68000; actualizar Ghidra requiere volver a comprobar las traducciones.
-- Tu copia compatible del juego.
+- LLVM-MinGW with `clang++`, CMake and Ninja on PATH.
+- Ghidra **12.1.4** and a compatible JDK (the development setup uses JDK 25).
+  The specification/generator includes explicit SH-2 and 68000 fixes;
+  revalidate translations when updating Ghidra.
+- Your own supported game ROM.
 
 ```powershell
 $env:GHIDRA_INSTALL_DIR = 'C:\Tools\ghidra_12.1.4_PUBLIC'
-.\tools\build.ps1 -Rom 'C:\MisJuegos\twcup98.zip' -Jobs 4
+.\tools\build.ps1 -Rom 'C:\MyGames\twcup98.zip' -Jobs 4
 ```
 
-El flujo verifica cinco chips por hash, reconstruye `work/cart.bin`, extrae el
-driver de sonido del propio cartucho, exporta el IR con Ghidra y genera C++
-estático. A continuación compila `tecmo98-native-launcher-player` y publica
-el launcher autónomo y sus dependencias en `dist/windows`.
+The pipeline verifies five chips by hash, rebuilds `work/cart.bin`, extracts
+the sound driver from that cartridge, exports Ghidra IR and generates static
+C++. It then builds `tecmo98-native-launcher-player` and publishes the
+self-contained launcher and dependencies to `dist/windows`.
 
-El paquete final contiene la BIOS y **solo 16 KiB** de firmware residente,
-verificados por hash. No se copia el antiguo volcado completo de 1 MiB, ni la
-ROM, ni `work/`, ni `DataNative/`. La importación se prueba en una copia aparte
-para mantener limpio el paquete distribuido.
+The final package includes the BIOS and **only 16 KiB** of resident firmware,
+verified by hash. It excludes the old full 1 MiB RAM capture, ROM, `work/` and
+`DataNative/`. Run import/play checks in a separate copy to keep the package clean.
 
-Se puede repetir solo el empaquetado después de compilar:
+To repeat packaging after compilation:
 
 ```powershell
 .\tools\package.ps1
 ```
 
-El empaquetador se detiene si el destino contiene `DataNative`, evitando
-convertir accidentalmente una instalación usada en un paquete público.
+Packaging stops if the destination contains `DataNative`, preventing an active
+installation from accidentally becoming a public package. For an update,
+choose a new clean destination with `-Destination`.
 
-## Comprobaciones sin ROM
+## Checks without a ROM
 
 ```powershell
 cmake -S native-port -B native-port/build-check
@@ -47,6 +46,21 @@ dotnet build launcher/Tecmo98.csproj -c Release
 python tools/audit_publication.py
 ```
 
-Estas comprobaciones no ejecutan el juego. Los tests de fidelidad con datos
-originales necesitan tus archivos locales. Las carpetas de compilación y
-verificación están ignoradas; no se usan archivos secretos en CI pública.
+The launcher also provides `--self-test` and `--localization-check`. The latter
+opens a temporary WPF test window, switches the actual English/Spanish selector,
+checks persistence and controller navigation, and renders both languages at
+1280×820 and 1024×720. Results are written under `verification/`; it uses a
+controller fixture, not a physical device. `--ui-proof` additionally imports
+your local ROM to check the Select ROM → Start transition.
+
+These ROM-free checks do not run the game. Fidelity checks using original data
+need your local files. Build and verification folders are ignored; public CI
+does not receive private game data.
+
+## Launcher localization
+
+`launcher/Localization.cs` contains the English/Spanish presentation catalog.
+English is the default; `Language` in local `settings.json` saves the choice.
+Keep page IDs, graphics/filter values, input bindings and hardware identities
+independent of translated labels. Changing language must not change the native
+launch settings or rebind a control. The original game's language is unchanged.

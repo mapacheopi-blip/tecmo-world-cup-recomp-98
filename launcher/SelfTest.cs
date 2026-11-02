@@ -4,6 +4,13 @@ namespace Tecmo98;
 public static class SelfTest {
  static void Check(bool ok,string message){if(!ok)throw new Exception(message);}
  public static void Run(){var passed=new List<string>();
+  string oldLanguage=L.Language;
+  foreach(string language in new[]{"en","es"}){
+   L.Language=language;
+   foreach(var key in L.English.Keys)Check(L.F(key,0,0,0,0,0,0,0,0,0,0).Length>0,"Empty/invalid localized resource: "+key);
+  }
+  L.Language=oldLanguage;passed.Add("English/Spanish catalog: all format resources render in both languages");
+
   var raw=PadLogic.Parse("[{\"kind\":\"sdl\",\"index\":1,\"name\":\"Brook Fighting Board\",\"vendorId\":\"0c12\",\"productId\":\"0ef8\",\"buttonCount\":11,\"buttons\":1,\"axes\":[0,0,0,0,0,0],\"hats\":[3]}]").Single();
   var config=PadLogic.Default(raw);var v=PadLogic.Read(raw,config);Check(v[0]==1&&v[3]==1&&v[4]==1,"Brook diagonal and button");raw.Hats=[0];raw.Buttons=new bool[11];Check(PadLogic.Read(raw,config).All(x=>x==0),"HAT center must be neutral");passed.Add("Brook raw: diagonal, center and independent buttons");
   raw.Axes=[-1,0,0,0,0,0];raw.Hats=[2];v=PadLogic.Read(raw,config);Check(v[2]==0&&v[3]==0,"SOCD neutral");passed.Add("Opposite directions cancel");

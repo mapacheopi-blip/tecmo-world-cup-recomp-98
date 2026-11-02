@@ -15,6 +15,14 @@ jobs:
           dotnet-version: '10.0.x'
       - run: python tools/audit_publication.py
       - run: dotnet build launcher/Tecmo98.csproj -c Release
+      - name: Check English and Spanish launcher without a game ROM
+        run: |
+          $check = Start-Process -FilePath launcher/bin/Release/net10.0-windows/TecmoWorldCupRecomp98.exe -ArgumentList '--localization-check' -WindowStyle Hidden -Wait -PassThru
+          if ($check.ExitCode -ne 0) {
+            Get-Content launcher/bin/Release/net10.0-windows/ui-proof-error.txt -ErrorAction SilentlyContinue
+            exit $check.ExitCode
+          }
+          Get-Content launcher/bin/Release/net10.0-windows/verification/ui-v047/result.json
       - run: cmake -S native-port -B native-port/build-check
       - run: cmake --build native-port/build-check --config Release --target tecmo98-launcher-input-check tecmo98-contact-mailbox-check tecmo98-presentation-clock-check
       - run: |

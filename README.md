@@ -1,70 +1,80 @@
 # TECMO WORLD CUP RECOMP 98
 
-Port nativo experimental de **TECMO World Cup '98 / World Soccer '98** para
-Windows x64, basado en recompilación estática y servicios de plataforma nativos.
-El juego ejecuta código C++ compilado para PC; el launcher no abre MAME ni un
-intérprete de CPU.
+An experimental native **TECMO World Cup '98 / World Soccer '98** port for
+Windows x64, using static recompilation and native platform services.
+The game runs C++ compiled for PC. The launcher does not start MAME or a CPU
+interpreter.
 
-**La descarga no contiene la ROM del juego. Cada persona debe aportar su copia
-compatible de `twcup98.zip`.** Los archivos preparados a partir de esa ROM se
-generan únicamente en su equipo. La BIOS y el estado residente de firmware se
-incluyen por separado y conservan sus derechos originales: [avisos](NOTICE.md).
+**The download does not include the game ROM. Bring your own compatible copy
+of `twcup98.zip`.** Prepared game data is generated locally on your computer.
+BIOS and resident firmware are supplied separately and retain their original
+rights: see [NOTICE.md](NOTICE.md).
 
-## Descargar y jugar
+## Download and play
 
-1. Descarga el ZIP de Windows desde [Releases](https://github.com/mapacheopi-blip/tecmo-world-cup-recomp-98/releases).
-2. Extrae **toda** la carpeta en una ubicación donde puedas guardar archivos.
-3. Abre `TecmoWorldCupRecomp98.exe`.
-4. Pulsa **Seleccionar ROM** y elige tu `twcup98.zip`.
-5. Tras verificar los archivos, el mismo botón cambia a **Start**.
+1. Download the **Windows x64 ZIP** from [Releases](https://github.com/mapacheopi-blip/tecmo-world-cup-recomp-98/releases/latest).
+2. Extract the **entire** archive to a writable folder.
+3. Open `TecmoWorldCupRecomp98.exe`.
+4. Click **Select ROM** and choose your `twcup98.zip`.
+5. Once verification finishes, the same button becomes **Start**.
 
-No necesitas compilar ni instalar Ghidra, MAME o el SDK de .NET para jugar con
-el paquete de Windows. No copies una ROM al repositorio ni descargues el ZIP
-de código fuente esperando encontrar un ejecutable: usa el paquete de Releases.
+The Windows package includes its runtime. You do not need to compile anything
+or install Ghidra, MAME or the .NET SDK to play. GitHub's **Source code** archives
+are for developers; use the Windows x64 release asset for a ready-to-play build.
 
-## Requisitos
+### English and Spanish
 
-- Windows x64 compatible con .NET 10; el paquete lleva su runtime.
-- GPU/controlador compatible con Direct3D 11 y presentación DXGI flip de Windows 10+.
-- Tu copia de la revisión **JUET 980410 V1.000**, verificada por contenido.
+Use the **Language / Idioma** selector at the **top right** of the launcher to
+switch between **English** and **Español** at any time. Menus, help text,
+controller settings and launcher messages change immediately. Your choice is
+saved automatically for the next launch. New installations default to English.
+This changes the launcher language; the original game's text is unchanged.
 
-Se ha probado localmente con una RTX 5060 Ti y DualSense. Eso no certifica todos
-los equipos y mandos. No se publica un mínimo de CPU inventado.
+## Requirements
 
-## Funciones
+- Windows x64 supported by .NET 10; its runtime is included in the package.
+- A GPU/driver supporting Direct3D 11 and Windows 10+ DXGI flip presentation.
+- Your own copy of the **JUET 980410 V1.000** game revision, verified by content.
 
-- Menú principal: Seleccionar ROM / Start, Controles, Opciones y Salir.
-- Nítido, Suave y **Pixelart 2x** (Scale2x en GPU), DirectX 11 y VSync.
-- Ventana o pantalla completa sin bordes; proporción original 4:3 o estirada.
-- SDL3 y alternativa DirectInput, reasignación de botones/teclado, zona muerta,
-  perfiles por dispositivo y monitor de entrada.
-- Audio de 0 a 100 % y mute, independiente del volumen de Windows.
-- Juego/audio separados de la ventana y de la lectura del archivo de controles.
-- Preferencias y ROM preparada locales en `DataNative/`; registros por sesión.
+Local testing used an RTX 5060 Ti and DualSense. This does not certify every
+computer or controller. No unmeasured minimum CPU specification is claimed.
 
-La velocidad y frecuencia original del juego se conservan (~59,8 imágenes/s).
-Pixelart 2x modifica el escalado, no crea geometría HD ni aumenta la resolución
-interna. A 144 Hz fijos pueden alternarse dos y tres refrescos por imagen. No
-hay VRR, interpolación, RTX Remix ni sistema de mods implementados.
+## Features
 
-## Controles iniciales
+- Main menu: Select ROM / Start, Controls, Settings and Exit.
+- English / Spanish launcher, with a persistent language selector at the top.
+- Sharp, Smooth and **Pixelart 2x** (GPU Scale2x), Direct3D 11 and VSync.
+- Windowed or borderless fullscreen; original 4:3 or stretched aspect ratio.
+- SDL3 and an alternative DirectInput backend; button/key rebinding, deadzone,
+  per-device profiles and an input monitor.
+- Game volume from 0 to 100% and mute, independent of Windows volume.
+- Game/audio execution separated from the window and input-file reader.
+- Local preferences and prepared ROM data in `DataNative/`; per-session logs.
 
-| Acción | Teclado J1 | DualSense predeterminado |
+Original game speed is preserved (approximately 59.8 frames/s). Pixelart 2x
+changes scaling; it does not add HD geometry or increase internal resolution.
+At a fixed 144 Hz refresh rate, frames may alternate between two and three
+display refreshes. VRR, frame interpolation, RTX Remix and mods are not
+implemented.
+
+## Default controls
+
+| Action | Player 1 keyboard | Default DualSense |
 |---|---|---|
-| Movimiento | Flechas | Cruceta / stick izquierdo |
-| Botones A/B/C/D | Z / X / C / V | × / ○ / □ / △ |
-| Inicio | 1 | Options |
-| Crédito | 5 | Create / Share |
-| Volver al launcher | Esc | Cerrar ventana del juego |
+| Movement | Arrow keys | D-pad / left stick |
+| Buttons A/B/C/D | Z / X / C / V | × / ○ / □ / △ |
+| Start | 1 | Options |
+| Insert coin | 5 | Create / Share |
+| Return to launcher | Esc | Close the game window |
 
-Las asignaciones se pueden cambiar. La caducidad de entrada de 250 ms y la
-pérdida de foco sueltan contactos; el segundo plano es configurable. Hay
-asignaciones hasta J4, sujetas a las conexiones originales de la placa. No se
-certifica aquí una partida multijugador completa con todos los dispositivos.
+Bindings are configurable. Input expires after 250 ms; losing focus releases
+inputs unless background input is enabled. Up to four player profiles are
+available, subject to the original board's wiring. A complete multiplayer
+match with every supported device has not been certified.
 
-## ROM compatible
+## Supported ROM
 
-Los nombres antiguos dentro del ZIP también sirven; se comprueban tamaño y SHA-1.
+Older filenames inside the ZIP also work: the importer checks size and SHA-1.
 
 | Chip | Bytes | SHA-1 |
 |---|---:|---|
@@ -74,39 +84,43 @@ Los nombres antiguos dentro del ZIP también sirven; se comprueban tamaño y SHA
 | mpr20823.14 | 4194304 | c387d03ba27580c62ac0bf780915fdf41552df6f |
 | mpr20824.15 | 4194304 | 310961a5f114fea8938a3f514dffd5231e910a5a |
 
-El ZIP original se lee, no se modifica. Después de importar, los datos locales
-preparados permiten jugar sin conservar el ZIP en la misma ruta. Esos datos
-siguen siendo datos del juego: tampoco se publican en GitHub.
+The original ZIP is read without modification. After import, prepared local
+data lets you play without keeping that ZIP at its previous path. These files
+still contain game data and must not be uploaded to GitHub.
 
-## Estado y límites
+## Status and limitations
 
-La versión nativa jugable fue aceptada por el mantenedor tras pruebas reales.
-Las verificaciones sintéticas cubren píxeles, transporte de entrada, audio y
-pausas de presentación; no demuestran fidelidad completa del hardware original,
-todos los efectos o un torneo completo. El arranque usa firmware residente
-preparado y no representa todavía un encendido completo de BIOS.
+The maintainer accepted the playable native build after hands-on testing.
+Automated checks cover pixels, input transport, audio and presentation stalls;
+they do not prove complete original-hardware fidelity, every effect or a full
+tournament. Startup uses prepared resident firmware rather than a complete
+BIOS cold boot.
 
-Direct3D 11 es la ruta normal; GDI se conserva como recuperación. Una pausa que
-afecte al sistema o al controlador de audio aún puede interrumpir el sonido.
-Reporta errores sin adjuntar ROM, cartuchos preparados o volcados de RAM.
+Direct3D 11 is the normal presentation path; GDI remains a recovery option.
+A system or audio-driver stall can still interrupt sound. Report problems
+without attaching ROM files, prepared cartridges or RAM dumps.
 
-## Desarrollo
+## Development
 
-Lee [BUILDING.md](BUILDING.md) para compilar desde tu ROM. Las traducciones C++
-generadas y el IR se reconstruyen localmente y están excluidos de Git. La CI
-prueba las partes que no necesitan ROM; no finge ejecutar una partida sin ella.
+See [BUILDING.md](BUILDING.md) to build from your own ROM. Generated C++
+translations and IR are rebuilt locally and excluded from Git. Public CI runs
+the checks that do not need a game ROM.
 
-## Créditos y licencia
+Launcher translation strings are in `launcher/Localization.cs`. Display
+translations are separate from persisted controller/graphics values and the
+native launch protocol.
 
-Código propio bajo **MIT**. Componentes externos, firmware y arte original
-conservan sus derechos/licencias: [NOTICE.md](NOTICE.md).
+## Credits and license
 
-- SDL3, .NET y Vortice.DirectInput para entrada e interfaz de Windows.
-- Referencias SCSP/315-5881 de MAME, con avisos BSD conservados.
-- Ghidra para análisis y generación de traducciones durante el desarrollo.
-- [REA](https://github.com/morluto/rea) como herramienta de investigación.
+Original project code is licensed under **MIT**. External components, firmware
+and original artwork retain their own rights/licenses: [NOTICE.md](NOTICE.md).
+
+- SDL3, .NET and Vortice.DirectInput for Windows input and launcher services.
+- MAME's SCSP/315-5881 references, with their BSD notices preserved.
+- Ghidra for analysis and translation generation during development.
+- [REA](https://github.com/morluto/rea) as a research tool.
 - [Snowboard Kids: Recompiled](https://github.com/cdlewis/snowboardkids-recomp)
-  como referencia de presentación y flujo de selección de ROM. No somos un
-  fork ni usamos N64Recomp/RT64 para ejecutar este juego de Sega ST-V.
+  as a reference for presentation and ROM selection. This is not its fork;
+  N64Recomp/RT64 are not used to run this Sega ST-V game.
 
-Proyecto no oficial, sin afiliación con los titulares de TECMO o Sega.
+Unofficial project, not affiliated with TECMO or Sega's rights holders.

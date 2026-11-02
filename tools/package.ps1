@@ -14,7 +14,7 @@ Copy-Item (Join-Path $root 'firmware/bios-jp1.bin') $docs
 Copy-Item (Join-Path $root 'firmware/resident-jp1.bin') (Join-Path $docs 'resident-profile.bin')
 Copy-Item (Join-Path $root 'LICENSE') $Destination
 Copy-Item (Join-Path $root 'NOTICE.md') $Destination
-Copy-Item (Join-Path $root 'README.md') (Join-Path $Destination 'LEEME.md')
+Copy-Item (Join-Path $root 'README.md') (Join-Path $Destination 'README.md')
 Copy-Item (Join-Path $root 'firmware/NOTICE.md') (Join-Path $docs 'NOTICE.md')
 $licenses=Join-Path $Destination 'licenses'
 New-Item -ItemType Directory -Force -Path $licenses | Out-Null

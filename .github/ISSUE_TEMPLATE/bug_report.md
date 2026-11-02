@@ -1,20 +1,20 @@
 ---
-name: Error del juego o launcher
-about: Describe un fallo reproducible sin adjuntar archivos del juego
+name: Game or launcher bug
+about: Report a reproducible issue without attaching game files
 title: ''
 labels: bug
 assignees: ''
 ---
 
-**Versión y sistema:**
+**Version and operating system:**
 
-**GPU, frecuencia de pantalla y filtro de imagen:**
+**GPU, display refresh rate and image filter:**
 
-**Mando y conexión (USB/Bluetooth), si corresponde:**
+**Controller and connection (USB/Bluetooth), if applicable:**
 
-**Pasos para reproducir:**
+**Steps to reproduce:**
 
-**Qué esperabas y qué ocurrió:**
+**Expected and actual behavior:**
 
-No adjuntes ROM, cart.bin, volcados de memoria, claves ni datos personales.
-Si incluyes un registro, revisa y oculta primero tus rutas/nombres privados.
+Do not attach ROM files, cart.bin, memory dumps, keys or personal information.
+Review logs and redact private paths/names before sharing them.
