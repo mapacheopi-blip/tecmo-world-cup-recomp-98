@@ -1,0 +1,26 @@
+name: Source checks (no game ROM)
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: python tools/audit_publication.py
+      - run: dotnet build launcher/Tecmo98.csproj -c Release
+      - run: cmake -S native-port -B native-port/build-check
+      - run: cmake --build native-port/build-check --config Release --target tecmo98-launcher-input-check tecmo98-contact-mailbox-check tecmo98-presentation-clock-check
+      - run: |
+          & native-port/build-check/Release/tecmo98-launcher-input-check.exe
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & native-port/build-check/Release/tecmo98-contact-mailbox-check.exe
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & native-port/build-check/Release/tecmo98-presentation-clock-check.exe
+          exit $LASTEXITCODE

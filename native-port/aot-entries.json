@@ -1,0 +1,10 @@
+{
+  "entries": [
+    "06004000", "06004108", "0605a670", "0605ac54", "06004192", "060056f0",
+    "060540c4", "0605ba9c", "0605baa8", "0605ac74", "0605baf4", "0605d260",
+    "0605bda0", "0605df6c", "06037134", "0603c7e0", "0603de52", "0600d08c",
+    "060054f0", "060053e0", "0605bd34", "0605edb2", "0603c4dc", "060043e4",
+    "0605d61c", "20000200", "00000200", "00000240", "06062b34", "06062b88", "0605e9f0", "060026c8", "06002654", "0603ca04", "060098e0", "--discover-pointers", "--discover-all-game-words"
+  ],
+  "purpose": "Explicit static code-discovery seeds, including the slave reset vector. Not a list of completed game features."
+}

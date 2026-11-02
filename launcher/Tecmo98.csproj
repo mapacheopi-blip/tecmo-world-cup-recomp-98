@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><AssemblyName>TecmoWorldCupRecomp98</AssemblyName><Version>0.4.6</Version><Product>TECMO WORLD CUP RECOMP 98</Product><Title>TECMO WORLD CUP RECOMP 98</Title><DefaultItemExcludes>$(DefaultItemExcludes);build-diagnostic/**;app/**</DefaultItemExcludes><EnableDefaultCompileItems>true</EnableDefaultCompileItems></PropertyGroup>
+ <ItemGroup><Compile Remove="Native\InputBridge\**\*.cs"/><Resource Include="Assets\match.png"/><Resource Include="Assets\title.jpg"/><Content Include="Native\SDL3.dll" Link="SDL3.dll" CopyToOutputDirectory="PreserveNewest"/><Content Include="Native\SDL-LICENSE.txt" Link="SDL-LICENSE.txt" CopyToOutputDirectory="PreserveNewest"/></ItemGroup>
+</Project>
+
